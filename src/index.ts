@@ -6,7 +6,10 @@ const app = http.app({
 	enableHttps: false,
 });
 
-type HtmlTag = 'body' | 'div' | 'p' | 'h1';
+type MetaTags = 'html' | 'body' | 'head' | 'div';
+type HeadingTags = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+type TextTags = 'p';
+type HtmlTag = MetaTags | HeadingTags | TextTags;
 
 class Element {
 	private readonly _tag: string;
