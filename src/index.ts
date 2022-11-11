@@ -15,7 +15,7 @@ class Element {
 	private readonly _tag: string;
 	private _attributes: Record<string, string>;
 	private readonly _selfClosing: boolean;
-	private _children: string[];
+	private _children: string[] = [];
 
 	constructor(tag: HtmlTag, options?: { selfClosing: boolean }) {
 		this._tag = tag;
