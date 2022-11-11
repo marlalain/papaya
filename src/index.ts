@@ -30,8 +30,8 @@ class Element {
 		};
 	}
 
-	children(txt: TemplateStringsArray | string[]) {
-		this._children = [...txt];
+	addChildren(txt: TemplateStringsArray | string[]) {
+		this._children.push(...txt);
 	}
 
 	render() {
@@ -67,7 +67,7 @@ class Page {
 	}
 
 	body(str: TemplateStringsArray | string[]) {
-		this._body.children(str);
+		this._body.addChildren(str);
 	}
 
 	render() {
@@ -75,13 +75,22 @@ class Page {
 	}
 }
 
-const page = new Page();
-page.title("My Melon Wiki");
+const html: string = (() => {
+	const page = new Page();
+	page.title("My Melon Wiki");
 
-const helloTitle = new Element('h1');
-helloTitle.children`My Melon Wiki!`;
-page.body(helloTitle.renderAsChildren());
+	const helloTitle = new Element('h1');
+	helloTitle.addChildren`My Melon Wiki!`;
+	page.body(helloTitle.renderAsChildren());
 
-app.get("/", async () => http.static(page.render(), 'text/html'));
+	const lorem = new Element('p');
+	lorem.addChildren`Lorem Ipsum Dolor sit Amet`;
+	page.body(lorem.renderAsChildren());
+
+	return page.render();
+})();
+
+
+app.get("/", async () => http.static(html, 'text/html'));
 
 app.run();
