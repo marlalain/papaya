@@ -1,11 +1,12 @@
 type MetaTags = 'html' | 'body' | 'head' | 'div';
 type HeadingTags = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 type TextTags = 'p';
-type HtmlTag = MetaTags | HeadingTags | TextTags;
+type ContentTags = 'img';
+type HtmlTag = MetaTags | HeadingTags | TextTags | ContentTags;
 
 class Element {
 	private readonly _tag: string;
-	private _attributes: Record<string, string>;
+	private _attributes: Record<string, string> = {};
 	private readonly _selfClosing: boolean;
 	private _children: Element[] = [];
 	private _inner: string;
@@ -27,15 +28,20 @@ class Element {
 		};
 	}
 
+	attributes() {
+		return Object.entries(this._attributes).map(([k, v]) => `${k}="${v}"`).join(' ');
+	}
+
 	addChildren(txt: Element[]) {
 		this._children.push(...txt);
 	}
 
 	render(): string {
 		if (this._selfClosing) {
-			return `<${this._tag} />`;
+			return `<${this._tag} ${this.attributes()} />`;
 		} else {
-			return `<${this._tag}>${this._inner ? this._inner : ''}${this._children.map(children => children ? children.render() : '').join('')}</${this._tag}>`;
+			return `<${this._tag} ${this.attributes()}>${this._inner ? this._inner : ''}${this._children.map(children => children ?
+			 children.render() : '').join('')}</${this._tag}>`;
 		}
 	}
 

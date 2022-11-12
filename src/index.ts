@@ -9,7 +9,6 @@ const app = http.app({
 	enableHttps: false,
 });
 
-
 const html: string = (() => {
 	const page = new Page();
 	page.title("My Melon Wiki");
