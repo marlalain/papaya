@@ -17,15 +17,27 @@ const parseLine = (line: string) => {
 			type headingLevels = 1 | 2 | 3 | 4 | 5 | 6;
 			const level = countCharacters("#", line) as headingLevels;
 			const element = new Element(`h${level}`);
-			element.innerHtml([line.split('# ')[1]]);
+			element.innerHtml([line.split("# ")[1]]);
 
 			return element;
 		},
 		"!": () => {
-			const element = new Element('img');
+			const element = new Element("img");
 			const alt = line.match(/(?<=\[).*(?=])/)[0];
 			const src = line.match(/(?<=\().*(?=\))/)[0];
 			element.addAttribute({ alt, src });
+
+			return element;
+		},
+		"|": () => {
+			const element = new Element("div");
+			const columns = line.split("|");
+
+			element.addChildren(columns.map(item => {
+				const childElement = new Element("span");
+				childElement.innerHtml([item]);
+				return childElement;
+			}));
 
 			return element;
 		}
@@ -37,7 +49,7 @@ const parseLine = (line: string) => {
 		return operations[starter]();
 	}
 
-	const element = new Element('p');
+	const element = new Element("p");
 	element.innerHtml([line]);
 
 	return element;
@@ -49,14 +61,18 @@ class MarkdownParser {
 
 	constructor(text: string) {
 		this._markdown = text;
-		this._meta = new Element('div');
+		this._meta = new Element("div");
 	}
 
 	parse() {
-		this._markdown.split('\n').forEach(line => {
-			let element = parseLine(line);
-			this._meta.addChildren([element])
-		});
+		const markdownValues = this._markdown.split('\n');
+
+		for(const line of markdownValues) {
+			if(line.trim() != "") {
+				const element = parseLine(line);
+				this._meta.addChildren([element]);
+			}
+		}
 	}
 
 	title(text: string) {

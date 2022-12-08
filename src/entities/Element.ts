@@ -1,7 +1,7 @@
-type MetaTags = 'html' | 'body' | 'head' | 'div';
-type HeadingTags = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type TextTags = 'p';
-type ContentTags = 'img';
+type MetaTags = "html" | "body" | "head" | "div" | "br";
+type HeadingTags = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+type TextTags = "p" | "span";
+type ContentTags = "img";
 type HtmlTag = MetaTags | HeadingTags | TextTags | ContentTags;
 
 class Element {
@@ -29,7 +29,7 @@ class Element {
 	}
 
 	attributes() {
-		return Object.entries(this._attributes).map(([k, v]) => `${k}="${v}"`).join(' ');
+		return Object.entries(this._attributes).map(([k, v]) => `${k}="${v}"`).join("");
 	}
 
 	addChildren(txt: Element[]) {
@@ -40,8 +40,8 @@ class Element {
 		if (this._selfClosing) {
 			return `<${this._tag} ${this.attributes()} />`;
 		} else {
-			return `<${this._tag} ${this.attributes()}>${this._inner ? this._inner : ''}${this._children.map(children => children ?
-			 children.render() : '').join('')}</${this._tag}>`;
+			return `<${this._tag} ${this.attributes()}>${this._inner ? this._inner : ""}${this._children.map(children => children ?
+			 children.render() : "").join("")}</${this._tag}>`;
 		}
 	}
 
