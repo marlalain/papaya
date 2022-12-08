@@ -1,4 +1,4 @@
-import {Element} from "./element";
+import {Element} from "./Element";
 
 class Page {
 	private _head: string = "<head></head>";

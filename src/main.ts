@@ -1,5 +1,5 @@
-import { MarkdownParser } from "./markdown-parser";
-import {Page} from "./page";
+import { MarkdownParser } from "./parsers/MarkdownParser";
+import { Page } from "./entities/Page";
 
 const { http } = Melon;
 const app = http.app({
@@ -13,7 +13,7 @@ const html: string = (() => {
 	const page = new Page();
 	page.title("My Melon Wiki");
 
-	const markdown = Melon.fs.readText('./src/index.md');
+	const markdown = Melon.fs.readText('./content/index.md');
 
 	const parser = new MarkdownParser(markdown);
 	parser.parse();

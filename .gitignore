@@ -122,8 +122,9 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-# melon project related
+# Melon project related
 babel/
+dist/
 
 # yarn v2
 .yarn/cache
@@ -131,6 +132,3 @@ babel/
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-# idea
-.idea
