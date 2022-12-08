@@ -2,7 +2,7 @@ type MetaTags = "html" | "body" | "head" | "div" | "br";
 type HeadingTags = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 type TextTags = "p" | "span";
 type ContentTags = "img";
-type HtmlTag = MetaTags | HeadingTags | TextTags | ContentTags;
+type HtmlTag = MetaTags | HeadingTags | TextTags | ContentTags | string;
 
 class Element {
 	private readonly _tag: string;
@@ -10,6 +10,10 @@ class Element {
 	private readonly _selfClosing: boolean;
 	private _children: Element[] = [];
 	private _inner: string;
+
+	count() {
+		return this._children.length;
+	}
 
 	constructor(tag: HtmlTag, options?: { selfClosing: boolean }) {
 		this._tag = tag;

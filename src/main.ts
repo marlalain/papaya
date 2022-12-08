@@ -1,4 +1,4 @@
-import { MarkdownParser } from "./parsers/MarkdownParser";
+import { MarkdownParser } from "./parsers/MarkdownParser/MarkdownParser";
 import { Page } from "./entities/Page";
 
 const { http } = Melon;
